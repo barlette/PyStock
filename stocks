@@ -73,13 +73,20 @@ def get_stock_value(stock, quantity):
 	soup = bs4.BeautifulSoup(res.text, "lxml")
 
 	stock_value = soup.select('div > span')
-	actual_value = float(stock_value[10].getText())
+	try:
+		actual_value = float(stock_value[10].getText())
+	except:
+		actual_value = float(stock_value[9].getText())
 
 	last_close_ext = soup.select('div span')
-	last_close = last_close_ext[45].getText()
+
+	try:
+		last_close = float(last_close_ext[45].getText())
+	except:
+		last_close = float(last_close_ext[44].getText())
 
 	#print((float(last_close) - float(actual_value))*int(quantity))
-	balance.append((float(actual_value) - float(last_close))*int(quantity))
+	balance.append((actual_value - last_close)*int(quantity))
 
 def write_hist(hist):
 	home = str(Path.home())
