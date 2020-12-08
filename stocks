@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 import requests
 import bs4
 
@@ -12,7 +14,7 @@ from pathlib import Path
 def generate_config_file(home):
 	print("First, you will enter which socks you want to track.")
 	print("You must enter their codes separated by a comma and following the Yahoo Finance's webpage convention, as below.")
-	print("'VALE3.SA,B3SA3.SA'")
+	print("'VALE3,B3SA3'")
 	stocks = input('Stock list:')
 	print("Now, enter the quantity for each stock entered, separated by a comma, as show below:")
 	print("10,20")	
