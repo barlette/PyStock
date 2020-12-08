@@ -1,0 +1,7 @@
+#!/bin/bash
+
+case $BLOCK_BUTTON in
+	1) notify-send "$(stocks --update)" ;;
+esac
+
+echo "$(stocks)"

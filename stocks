@@ -9,7 +9,7 @@ import datetime
 import threading
 
 from pathlib import Path
-
+import sys
 
 def generate_config_file(home):
 	print("First, you will enter which socks you want to track.")
@@ -85,7 +85,6 @@ def get_stock_value(stock, quantity):
 	except:
 		last_close = float(last_close_ext[44].getText())
 
-	#print((float(last_close) - float(actual_value))*int(quantity))
 	balance.append((actual_value - last_close)*int(quantity))
 
 def write_hist(hist):
@@ -140,10 +139,13 @@ def caller(stocks, hist):
 if __name__ == '__main__':
 	d = datetime.datetime.now()
 	stocks, hist = read_config()
-
-	if (d.hour < 19 and d.hour > 9):
-		caller(stocks, hist)
+	if(len(sys.argv) > 1):
+		if sys.argv[1] == '--update':
+			caller(stocks, hist)
+		else:
+			print('Invalid option!')
 	else:
-		print(f'💰 ➡ BRL {float(hist[0]):8.2f}')
-
-	#caller(stocks, hist)
+		if (d.hour < 19 and d.hour > 9):
+			caller(stocks, hist)
+		else:
+			print(f'💰 ➡ BRL {float(hist[0]):8.2f}')
